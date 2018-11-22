@@ -1,7 +1,6 @@
 <?php
 /* <one line to give the program's name and a brief idea of what it does.>
  * Copyright (C) <2017> SaaSprov.ma <saasprov@gmail.com>
- * Copyright (C) 2018  Philippe Grand <philippe.grand@atoo-net.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,11 +51,16 @@ if ($resql) {
 $user_cstmd = new User($db);
 $user_cstmd->fetch($user_id); 
 
-
+// var_dump($user_cstmd);die;
 
 
 class PDF extends FPDF
 {
+	public $arr = '';
+	function __construct($arr = '') {
+		parent::__construct();
+		$this->arr = $arr;
+    }
 	// En-tête
 	function Header()
 	{
@@ -65,16 +69,15 @@ class PDF extends FPDF
 
 	function Footer()
 	{
+		$arr = $this->arr;
 		include 'pdffooter.php';
 	}
 }
 
 // Instanciation de la classe dérivée
-$pdf = new PDF();
-
-if (method_exists($pdf,'AliasNbPages')) $pdf->AliasNbPages();
+$pdf = new PDF(array($conf->global->FOOTER_LIGNE1, $conf->global->FOOTER_LIGNE2, $conf->global->FOOTER_LIGNE3, $conf->global->FOOTER_LIGNE4));
+$pdf->AliasNbPages();
 $pdf->AddPage();
-
 $pdf->SetFont('Arial','BU',13);
 
 $pdf->SetXY(15, 60);
@@ -138,20 +141,11 @@ $pdf->MultiCell(80,8,utf8_decode($object->array_options['options_cstmd']), 0, 'C
 $pdf->SetFont('Arial','',12);
 $pdf->SetXY(110, 190);
 $pdf->MultiCell(80,8,utf8_decode("Conseiller à la sécurité"), 0, 'C');
+//var_dump($user_cstmd);exit;
+// $pdf->Image('img/sig.jpg',135,200,40);
+// $pdf->Footer("hhhh");
+ $user_cstmd->array_options['options_vcstmd'],135,200,40);
 
-$title_key=(empty($object->array_options['options_vcstmd']))?'':($object->array_options['options_vcstmd']);	
-$extrafields = new ExtraFields($db);
-$extralabels = $extrafields->fetch_name_optionals_label ($object->table_element, true);
-if (is_array($extralabels ) && key_exists('options_vcstmd', $extralabels) && !empty($title_key)) 
-{
-	$titlekey = $extrafields->showOutputField ('options_vcstmd', $title_key);
-	$pdf->Image($titlekey, 135, 200, 40);
-}
-else
-{
-	$warning = $langs->trans("Image file has no extension and no type was specified");
-	setEventMessages('', $warning, 'errors');
-}
 
 $dir = $dolibarr_main_data_root."/icstmd/".$socid;
 if (!file_exists($dir)) {
