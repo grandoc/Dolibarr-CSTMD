@@ -19,13 +19,13 @@
 if (false === (@include '../main.inc.php')) {  // From htdocs directory
 require '../../main.inc.php'; // From "custom" directory
 }
+dol_include_once('/icstmd/vendor/autoload.php');
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/modules/fichinter/modules_fichinter.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/fichinter.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
-require_once DOL_DOCUMENT_ROOT.'/includes/fpdf/fpdf/fpdf.php';
 
 
 $id	= GETPOST('id','int');
