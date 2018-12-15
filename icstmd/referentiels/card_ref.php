@@ -78,7 +78,7 @@ if (($id > 0 ) && $action != 'add')
 				{
 					// Creation OK
 					setEventMessage($langs->trans("AddedSuccessfully"), 'mesgs');
-					header("Location: index_ref.php");
+					header("Location: list_ref.php");
 					exit;
 				}
 				else{
@@ -94,7 +94,7 @@ if (($id > 0 ) && $action != 'add')
 				$action='create';
 			}
 		} else {
-			Header("Location: index_ref.php");
+			Header("Location: list_ref.php");
 			exit();
 		}
     }
@@ -119,7 +119,7 @@ if (($id > 0 ) && $action != 'add')
 				if ($result > 0)
 				{
 					setEventMessage($langs->trans("UpdatedSuccessfully"), 'mesgs');
-					header("Location: index_ref.php");
+					header("Location: list_ref.php");
 					exit;
 				}
 				else
@@ -135,7 +135,7 @@ if (($id > 0 ) && $action != 'add')
 				$action='edit';
 			}
 		} else {
-			Header("Location: index_ref.php");
+			Header("Location: list_ref.php");
 			exit();
 		}
     }
@@ -148,7 +148,7 @@ if (($id > 0 ) && $action != 'add')
         if ($result < 0)
         { 
 			setEventMessage($langs->trans("DeletedSuccessfully"), 'mesgs');
-			header("Location:index_ref.php");
+			header("Location:list_ref.php");
 			exit;
         }
         else

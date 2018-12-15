@@ -1,6 +1,7 @@
 ﻿<?php
 /* <one line to give the program's name and a brief idea of what it does.>
  * Copyright (C) <2017> SaaSprov.ma <saasprov@gmail.com>
+ * Copyright (C) 2018 Philippe GRAND 	<philippe.grand@atoo-net.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +24,8 @@ if (! $res)
 if (! $res)
 	die("Include of main fails");
 
-require_once '../class/referentiel.class.php';
+dol_include_once('/icstmd/class/referentiel.class.php');
+
 /***************************************************
 * VIEW
 *
@@ -33,12 +35,17 @@ $id			= GETPOST('id','int');
 $action		= GETPOST('action','alpha');
 $form=new Form($db);
 $object=new Referentiel($db);
-$limit = GETPOST("limit")?GETPOST("limit","int"):$conf->liste_limit;
-$page=GETPOST("page",'int');
-if ($page == -1) { $page = 0 ; }
+
+// Load variable for pagination
+$limit = GETPOST('limit','int')?GETPOST('limit','int'):$conf->liste_limit;
+$sortfield = GETPOST('sortfield','alpha');
+$sortorder = GETPOST('sortorder','alpha');
+$page = GETPOST('page','int');
+if (empty($page) || $page == -1) { $page = 0; }     // If $page is not defined, or '' or -1
 $offset = $limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
+
 if ($id > 0 || ! empty($ref))
 {
 	$result=$object->fetch($id,$ref);
@@ -52,7 +59,7 @@ if ($action == 'confirm_delete' )
 	if ($result > 0)
 	{ 
 		setEventMessage($langs->trans("DeletedSuccessfully"), 'mesgs');
-		header("Location:index_ref.php");
+		header("Location:list_ref.php");
 	}
 	else
 	{
@@ -95,8 +102,8 @@ print '
 		// Fields isbn10
 		print '<tr class="liste_titre">
 			<th class="liste_titre">Référentiel</th>
-			<th class="liste_titre">Nombre de Chapitre</th>
-			<th class="liste_titre">Nombre de Question</th>
+			<th class="liste_titre">Nombre de Chapîtres</th>
+			<th class="liste_titre">Nombre de Questions</th>
 			<th class="liste_titre">Action</th>
 		</tr>';
 		
