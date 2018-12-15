@@ -573,7 +573,7 @@ class modIcstmd extends DolibarrModules
 			'type' => 'left',
 			'titre' => 'Référentiel',
 			'leftmenu' => 'Referentiel',
-			'url'=>'/icstmd/referentiels/index_ref.php',
+			'url'=>'/icstmd/referentiels/list_ref.php',
 			'langs' => 'icstmd@icstmd',
 			'position' => 103,
 			// 'enabled' => '$user->rights->icstmd->lire',
