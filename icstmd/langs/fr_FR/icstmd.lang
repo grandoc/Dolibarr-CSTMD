@@ -20,24 +20,24 @@
 
 # Module label 'ModuleXXXName'
 # (where XXX is value of numeric property 'numero' of module)
-Module500000Name = Mon module
+Module500000Name = icstmd
 # Module description 'ModuleXXXDesc'
 # (where XXX is value of numeric property 'numero' of module)
-Module500000Desc = Description de mon module
+Module500000Desc = Description de icstmd
 
 #
 # Page d'administration
 #
-MyModuleSetup = Configuration du module mon module
+icstmdSetup = Configuration du module icstmd
 Settings = Réglages
-MyModuleSetupPage = Page de réglage de mon module
+icstmdSetupPage = Page de réglage de icstmd
 
 #
 # Page À propos
 #
 About = À propos
-MyModuleAbout = À propos de mon module
-MyModuleAboutPage = Page à propos de mon module
+icstmdAbout = À propos de icstmd
+icstmdAboutPage = Page à propos de icstmd
 
 #
 # Page d'exemple
@@ -48,17 +48,17 @@ AddedSuccessfully = Ajouté avec succès
 UpdatedSuccessfully = Modifié avec succès
 DeletedSuccessfully = Supprimé avec succès
 DeleteMyQuestion = Supprimer un question 
-ConfirmDeleteMyQuestion = Êtes-vous sûr de vouloir supprimer ce question ?
+ConfirmDeleteMyQuestion = Êtes-vous sûr de vouloir supprimer cette question ?
 DeleteMyChapitre = Supprimer un question 
-ConfirmDeleteMyChapitre = Êtes-vous sûr de vouloir supprimer ce question ?
+ConfirmDeleteMyChapitre = Êtes-vous sûr de vouloir supprimer ce chapître ?
 NewQuestions = Nouvelle Question
 EditQuestions = Modifier Question
 NumCom = Numéro Commençant par
 NewIntervention = Nouvelle Intervention
 EditIntervention = Modifier Intervention
 NewQuestions = Nouvelle Question
-FieldIsReferentiel = Choissez un Referentiel
-ReferentielNotChapitre = Cette Referentiel vide
+FieldIsReferentiel = Choissez un Reférentiel
+ReferentielNotChapitre = Ce Réferentiel est vide
 
 #
 # Box d'exemple
