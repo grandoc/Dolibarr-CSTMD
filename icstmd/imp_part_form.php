@@ -32,7 +32,7 @@ $icstmd = new Icstmd($db);
 $action = GETPOST('action', 'alpha');
 //echo $action;
 $participants_importes = array();
-if($action == "impPartEnContact"){
+if($action == "impPartEnContact" && $conf->agefodd->enabled){
 	$sql = "SELECT rowid, fk_soc, nom, prenom, civilite, fonction, mail, tel1, tel2";
 	$sql.= " FROM " . MAIN_DB_PREFIX . "agefodd_stagiaire";	
 	$sql.= " WHERE fk_socpeople is null";
@@ -89,6 +89,10 @@ if($action == "impPartEnContact"){
 		dol_print_error($db);
 	}
 }
+else
+{
+	setEventMessages($langs->trans("Le module Agefodd n'est pas installé"), null, 'errors');
+}
 
 
 llxHeader('', $langs->trans('Calendar'), '');
@@ -112,7 +116,7 @@ llxHeader('', $langs->trans('Calendar'), '');
 			<table class="noborder nohover centpercent">
 			   <tbody>
 				  <tr class="liste_titre">
-					 <td >Rechercher et enregistrement des participant comme contacts</td>
+					 <td >Recherche et enregistrement des participants comme contacts</td>
 				  </tr>
 				  <tr class="impair">
 					<td><input type="submit" value="Lancer la recherche et import" class="button"></td>
@@ -123,18 +127,15 @@ llxHeader('', $langs->trans('Calendar'), '');
 							<tr class="pair"><td><?php print $v;?></td></tr>
 						<?php endforeach;?>
 					<?php elseif($action == "impPartEnContact"):?>
-					<tr class="pair"><td>Toutes les participants sont enregistrés comme contacts</td></tr>
+					<tr class="pair"><td>Tous les participants sont enregistrés comme contacts</td></tr>
 					<?php endif;?>
 				  
 				  
 			   </tbody>
 			</table>
-		</form>
-	
-	
+		</form>		
 		
 	</div>
-
 
 </div>
     
