@@ -1,4 +1,5 @@
 ﻿<?php
+use setasign\Fpdi\Fpdi;
 /* <one line to give the program's name and a brief idea of what it does.>
  * Copyright (C) <2017> SaaSprov.ma <saasprov@gmail.com>
  *
@@ -16,16 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 // Load Dolibarr environment
 if (false === (@include '../main.inc.php')) {  // From htdocs directory
 	require '../../main.inc.php'; // From "custom" directory
 }
-require_once DOL_DOCUMENT_ROOT.'/includes/fpdf/fpdf/fpdf.php';
+dol_include_once('/icstmd/vendor/autoload.php');
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
-
-require_once('scripts/fpdi.php');
 
 
 $tR = $tFer = $tFl = "";
@@ -190,9 +188,6 @@ $adr	= GETPOST('adr');
 //var_dump($dechargement);die;
 
 
-
-
-
 if(!empty($transRoute)) $tR = "X"; if(!empty($transFer)) $tFer = "X"; if(!empty($transFluv)) $tFl = "X";
 
 if(!empty($chargRoute)) $cR = "X"; if(!empty($chargFer)) $cFer = "X"; if(!empty($chargFluv)) $cFl = "X";
@@ -217,7 +212,7 @@ if ($id > 0 || ! empty($ref))
 
 
 // initiate FPDI
-$pdf = new FPDI();
+$pdf = new Fpdi();
 // add a page
 $pdf->AddPage();
 // set the source file
