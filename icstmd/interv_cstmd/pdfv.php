@@ -21,12 +21,11 @@ if (! $res)
 	$res = @include ("../../../main.inc.php"); // For "custom" directory
 if (! $res)
 	die("Include of main fails");
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-require_once '../fpdf/fpdf.php';
+
+dol_include_once('/icstmd/vendor/autoload.php');
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
+
 $id			= GETPOST('id','int');
 $interv = new Fichinter($db);
 
@@ -160,7 +159,7 @@ class PDF_MC_Table extends FPDF{
 	function firstpage($data)
 	{
 	    // Logo
-	    $this->Image($data["logo"],13,13,50);
+	    $this->Image($data["logo"],13,13,50,'jpg');
 	    $this->SetDrawColor(255, 191, 0);
 	    $this->SetLineWidth(2);
 	    $this->Line(10, 60, 200, 60);
@@ -175,7 +174,7 @@ class PDF_MC_Table extends FPDF{
 	    $this->Ln(20);
 	    $this->Cell(0,0,$data["title"][2],0,0,'C');
 	    // Image
-	    $this->Image($data["image"],55,150,100);
+	    $this->Image($data["image"],55,150,100,'jpg');
 	}
 
 	// Page 1
@@ -468,7 +467,6 @@ if ($resql) {
 
 $pdf=new PDF_MC_Table();
 
-
 $pdf->datafooter = $footer;
 $pdf->SetFont('Arial','',14);
 //First Page
@@ -478,7 +476,8 @@ $pdf->firstpage($firstpage);
 $pdf->AddPage();
 $pdf->drawfirsttable($firstpage['logo']);
 $pdf->page2($title, $data);
-$pdf->Image("../" .$user_cstmd->array_options['options_vcstmd'],150,215,40);
+//$pdf->Image("../" .$user_cstmd->array_options['options_vcstmd'],150,215,40);
+
 //page 3
 // $pdf->AddPage();
 // $pdf->page3($title, $page3);
