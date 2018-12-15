@@ -25,7 +25,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/modules/fichinter/modules_fichinter.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/fichinter.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
-require_once DOL_DOCUMENT_ROOT.'/includes/fpdf/fpdf/fpdf.php';
+dol_include_once('/icstmd/vendor/autoload.php');
 
 
 $id	= GETPOST('id','int');
