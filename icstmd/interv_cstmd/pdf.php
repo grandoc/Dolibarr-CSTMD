@@ -21,12 +21,11 @@ if (! $res)
 	$res = @include ("../../../main.inc.php"); // For "custom" directory
 if (! $res)
 	die("Include of main fails");
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-require_once '../fpdf/fpdf.php';
+
+dol_include_once('/icstmd/vendor/autoload.php');
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
+
 $id			= GETPOST('id','int');
 $interv = new Fichinter($db);
 
@@ -35,7 +34,9 @@ if ($id > 0 )
 	$ret=$interv->fetch($id, null);
 	if ($ret > 0) $socid=$interv->socid;
 }
-
+//$pdf = new TCPDF;
+//$logo=$conf->mycompany->dir_output.'/logos/'.$emetteur->logo;
+//var_dump($logo);exit;
 if ($user->societe_id) $socid=$user->societe_id;
 $result = restrictedArea($user, 'societe', $socid, '&societe');
 
