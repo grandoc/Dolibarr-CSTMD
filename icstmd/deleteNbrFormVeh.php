@@ -21,7 +21,8 @@
 if (false === (@include '../main.inc.php')) {  // From htdocs directory
 	require '../../main.inc.php'; // From "custom" directory
 }
-require_once DOL_DOCUMENT_ROOT.'/includes/fpdf/fpdf/fpdf.php';
+
+dol_include_once('/icstmd/vendor/autoload.php');
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
 
