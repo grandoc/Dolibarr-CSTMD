@@ -20,7 +20,8 @@
 if (false === (@include '../main.inc.php')) {  // From htdocs directory
 	require '../../main.inc.php'; // From "custom" directory
 }
-require_once 'fpdf/fpdf.php';
+
+dol_include_once('/icstmd/vendor/autoload.php');
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
 
@@ -76,7 +77,7 @@ class PDF extends FPDF
 
 // Instanciation de la classe dérivée
 $pdf = new PDF(array($conf->global->FOOTER_LIGNE1, $conf->global->FOOTER_LIGNE2, $conf->global->FOOTER_LIGNE3, $conf->global->FOOTER_LIGNE4));
-if (method_exists($pdf,'AliasNbPages')) $pdf->AliasNbPages();
+$pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Arial','BU',13);
 
@@ -107,6 +108,7 @@ $object->address = str_replace("–","-",$object->address);
 $adress = str_replace(array("\r", "\n"), '', $object->address);
 $pdf->MultiCell(180,8,utf8_decode($adress), 0, 'L');
 
+
 $pdf->SetXY(35, 132);
 $pdf->MultiCell(180,8,utf8_decode($object->zip .", ".$object->town.", ".$object->country), 0, 'L');
 
@@ -123,12 +125,15 @@ $pdf->SetXY(35, 158);
 $adress = str_replace(array("\r", "\n"), '', $object->address);
 $pdf->MultiCell(180,8,utf8_decode($adress), 0, 'L');
 
+
 $pdf->SetXY(35, 164);
 $pdf->MultiCell(180,8,utf8_decode($object->zip .", ".$object->town.", ".$object->country), 0, 'L');
+
 
 $pdf->SetFont('Arial','',12);
 $pdf->SetXY(15, 174);
 $pdf->MultiCell(180,8,utf8_decode("Fait à ".$conf->global->MAIN_INFO_SOCIETE_TOWN." , le ".date("d/m/Y")), 0, 'L');
+
 
 $pdf->SetFont('Arial','B',12);
 $pdf->SetXY(110, 184);
@@ -137,8 +142,11 @@ $pdf->MultiCell(80,8,utf8_decode($object->array_options['options_cstmd']), 0, 'C
 $pdf->SetFont('Arial','',12);
 $pdf->SetXY(110, 190);
 $pdf->MultiCell(80,8,utf8_decode("Conseiller à la sécurité"), 0, 'C');
+//var_dump($user_cstmd);exit;
+// $pdf->Image('img/sig.jpg',135,200,40);
 
-$title_key=(empty($user_cstmd->array_options['options_vcstmd']))?'':($user_cstmd->array_options['options_vcstmd']);	
+$title_key=(empty($user_cstmd->array_options['options_vcstmd']))?'':($user_cstmd->array_options['options_vcstmd']);
+//var_dump($title_key);exit;	
 $extrafields = new ExtraFields($db);
 $extralabels = $extrafields->fetch_name_optionals_label ($user_cstmd->table_element, true);
 if (is_array($extralabels ) && key_exists('vcstmd', $extralabels) && !empty($title_key)) 
@@ -148,7 +156,7 @@ if (is_array($extralabels ) && key_exists('vcstmd', $extralabels) && !empty($tit
 }
 else
 {
-	setEventMessages('FPDF error: Image file has no extension and no type was specified:'.$title_key, null, 'errors');
+	setEventMessages(null, 'FPDF error: Image file has no extension and no type was specified:'.$title_key, 'errors');
 }
 
 $dir = $dolibarr_main_data_root."/icstmd/".$socid;
@@ -158,6 +166,7 @@ if (!file_exists($dir)) {
 
 $filename=$dir."/acceptmiss".date('Y_m_d').".pdf";
 $pdf->Output($filename,'F');
+
 
 if (isset($_SERVER["HTTP_REFERER"])) {
 	header("Location: " . $_SERVER["HTTP_REFERER"]);
