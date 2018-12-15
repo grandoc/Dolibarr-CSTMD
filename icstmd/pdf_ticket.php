@@ -1,4 +1,5 @@
 ﻿<?php
+use setasign\Fpdi\Fpdi;
 /* <one line to give the program's name and a brief idea of what it does.>
  * Copyright (C) <2017> SaaSprov.ma <saasprov@gmail.com>
  *
@@ -21,11 +22,10 @@
 if (false === (@include '../main.inc.php')) {  // From htdocs directory
 	require '../../main.inc.php'; // From "custom" directory
 }
-require_once DOL_DOCUMENT_ROOT.'/includes/fpdf/fpdf/fpdf.php';
+
+dol_include_once('/icstmd/vendor/autoload.php');
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
-
-require_once('scripts/fpdi.php');
 
 
 $tR = $tFer = $tFl = "";
@@ -227,7 +227,7 @@ if ($id > 0 || ! empty($ref))
 
 
 // initiate FPDI
-$pdf = new FPDI();
+$pdf = new Fpdi();
 // add a page
 $pdf->AddPage();
 // set the source file
